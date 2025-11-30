@@ -36,7 +36,7 @@
     .envelope-container {
       position: relative;
       width: 260px;
-      height: 180px;
+      height: 190px;
       margin: 0 auto;
       cursor: pointer;
       perspective: 1000px;
@@ -116,11 +116,11 @@
       left: 50%;
       transform: translate(-50%, -50%);
       width: 90%;
-      height: 75%;
+      height: 82%;
       background: #fffdf8;
       border-radius: 14px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-      padding: 14px 16px;
+      padding: 12px 14px;
       text-align: left;
       overflow: hidden;
       transition: transform 0.9s ease-in-out, opacity 0.9s ease-in-out;
@@ -147,7 +147,7 @@
 
     .card p.center {
       text-align: center;
-      margin-top: 8px;
+      margin-top: 6px;
     }
 
     .heart {
@@ -220,11 +220,86 @@
       pointer-events: none;
     }
 
-    /* Mobile tweaks */
+    /* Input area */
+    .answer-area {
+      margin-top: 8px;
+    }
+
+    .answer-area label {
+      font-size: 0.8rem;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .answer-input-row {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+
+    .answer-input-row input {
+      flex: 1;
+      padding: 6px 8px;
+      border-radius: 999px;
+      border: 1px solid #f0c4b4;
+      font-size: 0.78rem;
+      outline: none;
+    }
+
+    .answer-input-row button {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: none;
+      font-size: 0.78rem;
+      background: #ff7a8a;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease,
+        background 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .answer-input-row button:active {
+      transform: scale(0.96);
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .result-text {
+      font-size: 0.8rem;
+      margin-top: 4px;
+      min-height: 16px;
+    }
+
+    .result-text.correct {
+      color: #1b8a4a;
+      font-weight: 600;
+    }
+
+    .result-text.wrong {
+      color: #c0392b;
+    }
+
+    .reveal {
+      margin-top: 6px;
+      font-size: 0.8rem;
+      padding: 6px 8px;
+      border-radius: 10px;
+      background: #fff6e8;
+      border: 1px dashed #ff9f80;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .reveal.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     @media (max-width: 400px) {
       .envelope-container {
         width: 230px;
-        height: 165px;
+        height: 175px;
       }
       .card p {
         font-size: 0.78rem;
@@ -245,7 +320,10 @@
           <div class="card-inner">
             <p>Hey… I know we argued, and I’m really sorry for my part in it.</p>
             <p>You mean a lot to me, and I don’t like us ending the day like this.</p>
-            <p class="small">So I made a small puzzle for you <span class="heart">❤️</span></p>
+            <p class="small">
+              I hope we’re okay… so I made a tiny puzzle for you
+              <span class="heart">❤️</span>
+            </p>
 
             <p class="center"><strong>You + Me + Tonight = ____ ?</strong></p>
             <p class="small center">
@@ -253,10 +331,27 @@
               makes both of us smile 👀)
             </p>
 
-            <p style="margin-top: 10px;">
-              And just so you know… I already picked the place.
-            </p>
-            <p><strong>So I’m really hoping your answer is “yes”.</strong></p>
+            <div class="answer-area">
+              <label for="answer">Type your answer here:</label>
+              <div class="answer-input-row">
+                <input
+                  id="answer"
+                  type="text"
+                  autocomplete="off"
+                  placeholder="Your guess…"
+                />
+                <button id="checkBtn">Check</button>
+              </div>
+              <div id="result" class="result-text"></div>
+              <div id="reveal" class="reveal">
+                🎉 You got it right!  
+                <br />
+                <strong>Maison Bleue Restaurant</strong><br />
+                See you at <strong>7:30 pm</strong>.  
+                <br />
+                You’re heartily welcome ❤️
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -270,9 +365,43 @@
 
   <script>
     const envelope = document.getElementById("envelope");
+    const answerInput = document.getElementById("answer");
+    const checkBtn = document.getElementById("checkBtn");
+    const result = document.getElementById("result");
+    const reveal = document.getElementById("reveal");
 
     envelope.addEventListener("click", () => {
       envelope.classList.add("opened");
+      // focus input after a short delay so it feels smooth
+      setTimeout(() => {
+        answerInput.focus();
+      }, 900);
+    });
+
+    function checkAnswer() {
+      const value = answerInput.value.trim().toLowerCase();
+      if (!value) {
+        result.textContent = "At least guess something 😄";
+        result.className = "result-text wrong";
+        return;
+      }
+
+      if (value === "date") {
+        result.textContent = "Yes, that’s exactly what I was hoping for 🥹";
+        result.className = "result-text correct";
+        reveal.classList.add("show");
+      } else {
+        result.textContent = "Cute guess, but not what I had in mind… try again 😉";
+        result.className = "result-text wrong";
+      }
+    }
+
+    checkBtn.addEventListener("click", checkAnswer);
+
+    answerInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        checkAnswer();
+      }
     });
 
     // floating hearts in background
@@ -291,4 +420,3 @@
   </script>
 </body>
 </html>
-

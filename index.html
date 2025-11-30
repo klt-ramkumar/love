@@ -55,11 +55,12 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 65%;
+      height: 55%; /* slightly shorter so it doesn't cover too much */
       background: #ffebd6;
       border-radius: 0 0 22px 22px;
       box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28);
       overflow: hidden;
+      z-index: 1;
     }
 
     .envelope-body::before,
@@ -88,14 +89,14 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 65%;
+      height: 55%; /* match body height */
       background: #ffb997;
       transform-origin: top center;
       transform: rotateX(0deg);
       border-radius: 22px 22px 0 0;
       box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
       transition: transform 0.9s ease-in-out;
-      z-index: 4;
+      z-index: 3;
     }
 
     .flap::after {
@@ -114,7 +115,7 @@
 
     .card {
       position: absolute;
-      top: 54%;
+      top: 50%; /* start a bit higher */
       left: 50%;
       transform: translate(-50%, -50%);
       width: 96%;
@@ -206,11 +207,13 @@
     /* OPEN STATE */
     .envelope-container.opened .flap {
       transform: rotateX(-180deg);
+      z-index: 0; /* flap goes behind when open */
     }
 
     .envelope-container.opened .card {
       opacity: 1;
-      transform: translate(-50%, -85%);
+      transform: translate(-50%, -110%); /* move card well above envelope */
+      z-index: 4; /* on top of everything */
     }
 
     .envelope-container.opened + .open-label {

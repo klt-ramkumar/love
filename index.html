@@ -24,19 +24,20 @@
     .wrapper {
       text-align: center;
       color: #333;
+      padding: 16px;
     }
 
     .hint-text {
       color: #fff;
-      margin-bottom: 16px;
-      font-size: 1rem;
-      opacity: 0.9;
+      margin-bottom: 18px;
+      font-size: 1.05rem;
+      opacity: 0.95;
     }
 
     .envelope-container {
       position: relative;
-      width: 260px;
-      height: 190px;
+      width: 360px;
+      height: 260px;
       margin: 0 auto;
       cursor: pointer;
       perspective: 1000px;
@@ -46,6 +47,7 @@
       position: relative;
       width: 100%;
       height: 100%;
+      overflow: visible;
     }
 
     .envelope-body {
@@ -53,10 +55,10 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 70%;
+      height: 65%;
       background: #ffebd6;
-      border-radius: 0 0 18px 18px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+      border-radius: 0 0 22px 22px;
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28);
       overflow: hidden;
     }
 
@@ -86,12 +88,12 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 70%;
+      height: 65%;
       background: #ffb997;
       transform-origin: top center;
       transform: rotateX(0deg);
-      border-radius: 18px 18px 0 0;
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+      border-radius: 22px 22px 0 0;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
       transition: transform 0.9s ease-in-out;
       z-index: 4;
     }
@@ -103,45 +105,41 @@
       height: 100%;
       background: linear-gradient(
         to bottom,
-        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.45),
         transparent
       );
-      opacity: 0.7;
+      opacity: 0.75;
       pointer-events: none;
     }
 
     .card {
       position: absolute;
-      top: 52%;
+      top: 54%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 90%;
-      height: 82%;
+      width: 96%;
       background: #fffdf8;
-      border-radius: 14px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-      padding: 12px 14px;
+      border-radius: 18px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+      padding: 16px 18px 14px;
       text-align: left;
-      overflow: hidden;
       transition: transform 0.9s ease-in-out, opacity 0.9s ease-in-out;
       opacity: 0;
       z-index: 2;
     }
 
     .card-inner {
-      height: 100%;
-      overflow-y: auto;
-      padding-right: 4px;
+      /* no scrolling inside */
     }
 
     .card p {
-      font-size: 0.82rem;
-      line-height: 1.4;
-      margin-bottom: 6px;
+      font-size: 0.98rem;
+      line-height: 1.45;
+      margin-bottom: 8px;
     }
 
     .card p.small {
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       opacity: 0.9;
     }
 
@@ -152,14 +150,14 @@
 
     .heart {
       color: #ff4b6e;
-      font-size: 1.05rem;
+      font-size: 1.1rem;
     }
 
     .open-label {
       margin-top: 18px;
-      font-size: 0.95rem;
+      font-size: 1rem;
       color: #ffeef3;
-      opacity: 0.95;
+      opacity: 0.98;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -169,13 +167,13 @@
     .open-label span.arrow {
       display: inline-block;
       animation: bounce 1s infinite;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
     }
 
     .floating-heart {
       position: fixed;
       bottom: -30px;
-      font-size: 18px;
+      font-size: 20px;
       color: #ffeef3;
       opacity: 0.9;
       animation: floatUp 4s linear infinite;
@@ -212,7 +210,7 @@
 
     .envelope-container.opened .card {
       opacity: 1;
-      transform: translate(-50%, -80%);
+      transform: translate(-50%, -85%);
     }
 
     .envelope-container.opened + .open-label {
@@ -222,35 +220,35 @@
 
     /* Input area */
     .answer-area {
-      margin-top: 8px;
+      margin-top: 10px;
     }
 
     .answer-area label {
-      font-size: 0.8rem;
+      font-size: 0.88rem;
       display: block;
-      margin-bottom: 3px;
+      margin-bottom: 4px;
     }
 
     .answer-input-row {
       display: flex;
-      gap: 4px;
+      gap: 6px;
       margin-bottom: 4px;
     }
 
     .answer-input-row input {
       flex: 1;
-      padding: 6px 8px;
+      padding: 10px 12px;
       border-radius: 999px;
       border: 1px solid #f0c4b4;
-      font-size: 0.78rem;
+      font-size: 0.96rem;
       outline: none;
     }
 
     .answer-input-row button {
-      padding: 6px 10px;
+      padding: 10px 14px;
       border-radius: 999px;
       border: none;
-      font-size: 0.78rem;
+      font-size: 0.96rem;
       background: #ff7a8a;
       color: white;
       cursor: pointer;
@@ -265,9 +263,9 @@
     }
 
     .result-text {
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       margin-top: 4px;
-      min-height: 16px;
+      min-height: 18px;
     }
 
     .result-text.correct {
@@ -280,10 +278,10 @@
     }
 
     .reveal {
-      margin-top: 6px;
-      font-size: 0.8rem;
-      padding: 6px 8px;
-      border-radius: 10px;
+      margin-top: 8px;
+      font-size: 0.98rem;
+      padding: 8px 10px;
+      border-radius: 12px;
       background: #fff6e8;
       border: 1px dashed #ff9f80;
       opacity: 0;
@@ -296,13 +294,33 @@
       transform: translateY(0);
     }
 
-    @media (max-width: 400px) {
+    @media (max-width: 420px) {
       .envelope-container {
-        width: 230px;
-        height: 175px;
+        width: 320px;
+        height: 240px;
       }
       .card p {
-        font-size: 0.78rem;
+        font-size: 0.92rem;
+      }
+      .reveal {
+        font-size: 0.92rem;
+      }
+    }
+
+    @media (max-width: 350px) {
+      .envelope-container {
+        width: 290px;
+        height: 220px;
+      }
+      .card {
+        padding: 14px 14px 12px;
+      }
+      .card p {
+        font-size: 0.9rem;
+      }
+      .answer-input-row input,
+      .answer-input-row button {
+        font-size: 0.9rem;
       }
     }
   </style>
@@ -372,7 +390,6 @@
 
     envelope.addEventListener("click", () => {
       envelope.classList.add("opened");
-      // focus input after a short delay so it feels smooth
       setTimeout(() => {
         answerInput.focus();
       }, 900);
@@ -391,7 +408,8 @@
         result.className = "result-text correct";
         reveal.classList.add("show");
       } else {
-        result.textContent = "Cute guess, but not what I had in mind… try again 😉";
+        result.textContent =
+          "Cute guess, but not what I had in mind… try again 😉";
         result.className = "result-text wrong";
       }
     }

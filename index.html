@@ -22,9 +22,12 @@
     }
 
     .wrapper {
+      width: 100%;
+      max-width: 420px;
+      padding: 16px;
       text-align: center;
       color: #333;
-      padding: 16px;
+      position: relative;
     }
 
     .hint-text {
@@ -34,117 +37,98 @@
       opacity: 0.95;
     }
 
-    .envelope-container {
-      position: relative;
-      width: 360px;
-      height: 260px;
-      margin: 0 auto;
-      cursor: pointer;
-      perspective: 1000px;
-    }
-
-    .envelope {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      overflow: visible;
-    }
-
-    .envelope-body {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 55%; /* slightly shorter so it doesn't cover too much */
+    /* Envelope panel */
+    .envelope-panel {
       background: #ffebd6;
-      border-radius: 0 0 22px 22px;
-      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28);
+      border-radius: 24px;
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.25);
+      padding: 28px 20px 26px;
+      cursor: pointer;
+      position: relative;
       overflow: hidden;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .envelope-icon-circle {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: #ffb997;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 14px;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+      position: relative;
+    }
+
+    .envelope-icon-circle::before {
+      content: "";
+      position: absolute;
+      inset: 10%;
+      border-radius: 16px;
+      background: #fff3e5;
+      clip-path: polygon(0 0, 100% 0, 50% 55%);
+    }
+
+    .envelope-emoji {
+      position: relative;
+      font-size: 2rem;
       z-index: 1;
     }
 
-    .envelope-body::before,
-    .envelope-body::after {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: #ffc6a0;
+    .envelope-panel h1 {
+      font-size: 1.4rem;
+      margin-bottom: 6px;
     }
 
-    .envelope-body::before {
-      transform: skewX(-45deg);
-      transform-origin: left bottom;
-      left: 0;
+    .envelope-panel p {
+      font-size: 0.95rem;
+      opacity: 0.9;
     }
 
-    .envelope-body::after {
-      transform: skewX(45deg);
-      transform-origin: right bottom;
-      right: 0;
+    .tap-text {
+      margin-top: 14px;
+      font-size: 0.9rem;
+      color: #b25555;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
     }
 
-    .flap {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 55%; /* match body height */
-      background: #ffb997;
-      transform-origin: top center;
-      transform: rotateX(0deg);
-      border-radius: 22px 22px 0 0;
-      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
-      transition: transform 0.9s ease-in-out;
-      z-index: 3;
+    .tap-text span.arrow {
+      display: inline-block;
+      animation: bounce 1s infinite;
+      font-size: 1.2rem;
     }
 
-    .flap::after {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.45),
-        transparent
-      );
-      opacity: 0.75;
-      pointer-events: none;
-    }
-
-    .card {
-      position: absolute;
-      top: 50%; /* start a bit higher */
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 96%;
+    /* Letter card panel */
+    .card-panel {
+      margin-top: 0;
       background: #fffdf8;
-      border-radius: 18px;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
-      padding: 16px 18px 14px;
+      border-radius: 20px;
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.28);
+      padding: 20px 18px 18px;
       text-align: left;
-      transition: transform 0.9s ease-in-out, opacity 0.9s ease-in-out;
       opacity: 0;
-      z-index: 2;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      pointer-events: none; /* disabled until open */
     }
 
-    .card-inner {
-      /* no scrolling inside */
-    }
-
-    .card p {
+    .card-panel p {
       font-size: 0.98rem;
       line-height: 1.45;
       margin-bottom: 8px;
     }
 
-    .card p.small {
+    .card-panel p.small {
       font-size: 0.9rem;
       opacity: 0.9;
     }
 
-    .card p.center {
+    .card-panel p.center {
       text-align: center;
       margin-top: 6px;
     }
@@ -154,74 +138,6 @@
       font-size: 1.1rem;
     }
 
-    .open-label {
-      margin-top: 18px;
-      font-size: 1rem;
-      color: #ffeef3;
-      opacity: 0.98;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-
-    .open-label span.arrow {
-      display: inline-block;
-      animation: bounce 1s infinite;
-      font-size: 1.3rem;
-    }
-
-    .floating-heart {
-      position: fixed;
-      bottom: -30px;
-      font-size: 20px;
-      color: #ffeef3;
-      opacity: 0.9;
-      animation: floatUp 4s linear infinite;
-      pointer-events: none;
-    }
-
-    @keyframes floatUp {
-      0% {
-        transform: translateY(0) translateX(0);
-        opacity: 0;
-      }
-      10% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-120vh) translateX(40px);
-        opacity: 0;
-      }
-    }
-
-    @keyframes bounce {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-5px);
-      }
-    }
-
-    /* OPEN STATE */
-    .envelope-container.opened .flap {
-      transform: rotateX(-180deg);
-      z-index: 0; /* flap goes behind when open */
-    }
-
-    .envelope-container.opened .card {
-      opacity: 1;
-      transform: translate(-50%, -110%); /* move card well above envelope */
-      z-index: 4; /* on top of everything */
-    }
-
-    .envelope-container.opened + .open-label {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    /* Input area */
     .answer-area {
       margin-top: 10px;
     }
@@ -262,7 +178,6 @@
 
     .answer-input-row button:active {
       transform: scale(0.96);
-      box-shadow: 0 0 0 rgba(0, 0, 0, 0.2);
     }
 
     .result-text {
@@ -297,12 +212,59 @@
       transform: translateY(0);
     }
 
-    @media (max-width: 420px) {
-      .envelope-container {
-        width: 320px;
-        height: 240px;
+    /* Floating hearts */
+    .floating-heart {
+      position: fixed;
+      bottom: -30px;
+      font-size: 20px;
+      color: #ffeef3;
+      opacity: 0.9;
+      animation: floatUp 4s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
       }
-      .card p {
+      10% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-120vh) translateX(40px);
+        opacity: 0;
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-4px);
+      }
+    }
+
+    /* OPEN STATE */
+    .wrapper.opened .envelope-panel {
+      opacity: 0;
+      transform: translateY(-10px) scale(0.97);
+      pointer-events: none;
+    }
+
+    .wrapper.opened .card-panel {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+      margin-top: 0;
+    }
+
+    @media (max-width: 380px) {
+      .wrapper {
+        max-width: 360px;
+      }
+      .card-panel p {
         font-size: 0.92rem;
       }
       .reveal {
@@ -310,15 +272,14 @@
       }
     }
 
-    @media (max-width: 350px) {
-      .envelope-container {
-        width: 290px;
-        height: 220px;
+    @media (max-width: 330px) {
+      .wrapper {
+        max-width: 330px;
       }
-      .card {
-        padding: 14px 14px 12px;
+      .card-panel {
+        padding: 18px 14px 16px;
       }
-      .card p {
+      .card-panel p {
         font-size: 0.9rem;
       }
       .answer-input-row input,
@@ -329,73 +290,74 @@
   </style>
 </head>
 <body>
-  <div class="wrapper">
+  <div class="wrapper" id="wrapper">
     <div class="hint-text">Tap the envelope 💌</div>
 
-    <div class="envelope-container" id="envelope">
-      <div class="envelope">
-        <div class="flap"></div>
-        <div class="envelope-body"></div>
-
-        <div class="card" id="card">
-          <div class="card-inner">
-            <p>Hey… I know we argued, and I’m really sorry for my part in it.</p>
-            <p>You mean a lot to me, and I don’t like us ending the day like this.</p>
-            <p class="small">
-              I hope we’re okay… so I made a tiny puzzle for you
-              <span class="heart">❤️</span>
-            </p>
-
-            <p class="center"><strong>You + Me + Tonight = ____ ?</strong></p>
-            <p class="small center">
-              (Hint: It starts with ‘D’, ends with ‘E’… and it’s something that
-              makes both of us smile 👀)
-            </p>
-
-            <div class="answer-area">
-              <label for="answer">Type your answer here:</label>
-              <div class="answer-input-row">
-                <input
-                  id="answer"
-                  type="text"
-                  autocomplete="off"
-                  placeholder="Your guess…"
-                />
-                <button id="checkBtn">Check</button>
-              </div>
-              <div id="result" class="result-text"></div>
-              <div id="reveal" class="reveal">
-                🎉 You got it right!  
-                <br />
-                <strong>Maison Bleue Restaurant</strong><br />
-                See you at <strong>7:30 pm</strong>.  
-                <br />
-                You’re heartily welcome ❤️
-              </div>
-            </div>
-          </div>
-        </div>
+    <!-- First view: envelope -->
+    <div class="envelope-panel" id="envelopePanel">
+      <div class="envelope-icon-circle">
+        <span class="envelope-emoji">💌</span>
+      </div>
+      <h1>For you</h1>
+      <p>A little something from me…</p>
+      <div class="tap-text">
+        Tap to open
+        <span class="arrow">⬇️</span>
       </div>
     </div>
 
-    <div class="open-label">
-      Open me
-      <span class="arrow">⬆️</span>
+    <!-- Second view: letter card -->
+    <div class="card-panel" id="cardPanel">
+      <p>Hey… I know we argued, and I’m really sorry for my part in it.</p>
+      <p>You mean a lot to me, and I don’t like us ending the day like this.</p>
+      <p class="small">
+        I hope we’re okay… so I made a tiny puzzle for you
+        <span class="heart">❤️</span>
+      </p>
+
+      <p class="center"><strong>You + Me + Tonight = ____ ?</strong></p>
+      <p class="small center">
+        (Hint: It starts with ‘D’, ends with ‘E’… and it’s something that
+        makes both of us smile 👀)
+      </p>
+
+      <div class="answer-area">
+        <label for="answer">Type your answer here:</label>
+        <div class="answer-input-row">
+          <input
+            id="answer"
+            type="text"
+            autocomplete="off"
+            placeholder="Your guess…"
+          />
+          <button id="checkBtn">Check</button>
+        </div>
+        <div id="result" class="result-text"></div>
+        <div id="reveal" class="reveal">
+          🎉 You got it right!  
+          <br />
+          <strong>Maison Bleue Restaurant</strong><br />
+          See you at <strong>7:30 pm</strong>.  
+          <br />
+          You’re heartily welcome ❤️
+        </div>
+      </div>
     </div>
   </div>
 
   <script>
-    const envelope = document.getElementById("envelope");
+    const wrapper = document.getElementById("wrapper");
+    const envelopePanel = document.getElementById("envelopePanel");
     const answerInput = document.getElementById("answer");
     const checkBtn = document.getElementById("checkBtn");
     const result = document.getElementById("result");
     const reveal = document.getElementById("reveal");
 
-    envelope.addEventListener("click", () => {
-      envelope.classList.add("opened");
+    envelopePanel.addEventListener("click", () => {
+      wrapper.classList.add("opened");
       setTimeout(() => {
         answerInput.focus();
-      }, 900);
+      }, 500);
     });
 
     function checkAnswer() {
